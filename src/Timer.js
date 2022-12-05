@@ -1,36 +1,47 @@
-import React, {useState, useEffect} from 'react'
-import moment from 'moment';
+import React,{Fragment} from 'react'
 
-function AuctionLink() {
-   let time1 = moment("09:00:00", "hh:mm:ss");
-let time2 = moment("00:03:15", "hh:mm:ss");
-let subtract = time1.subtract(time2);
-let format = moment(subtract).format("hh:mm:ss")
-console.log(format); //08:56:45
- const [time, setTime ] = useState(format);
-   useEffect(() => {
-    setTimeout(() =>{
-      setTime(time-1000);
-    }, 1000);
-   },[time]);
-    const getCountDown = (format) => {
-      let totalSeconds = parseInt(Math.floor(format/1000));
-      let totalMinutes = parseInt(Math.floor(format/60));
-      let totalHours = parseInt(Math.floor(format/60));
-      let seconds = parseInt(totalSeconds % 60);
-      let minutes = parseInt(totalMinutes % 60);
-      let hours = parseInt(totalHours % 24);
-      return (
-        `${hours} : ${minutes} : ${seconds}`
-      )
-    }
-    console.log('Hey countdown',getCountDown)
+const Timer =({timerDays, timerHours, timerMinutes , timerSeconds }) => {
+  return (
+  <Fragment>
+    <section className='timer-container'>
+        <section className='timer'>
+            <div className='clock'>
+                <section>
+                    <p>{timerDays}</p>
+                    <small>Days</small>
+                </section>
+                <span>:</span>
+                <section>
+                    <p>{timerHours}</p>
+                    <small>Hours</small>
+                </section>{''}
+                <span>:</span>
+                <section>
+                    <p>{timerMinutes}</p>
+                    <small>Minutes</small>
+                </section>{''}
+                <span>:</span>
+                <section>
+                    <p>{timerSeconds}</p>
+                    <small>Seconds</small>
+                </section>
 
-    
-    return(
-     <div>
-      {getCountDown(time)}
-    </div>
+            </div>
+
+        </section>
+
+    </section>
+  </Fragment>
   )
+
+ 
 }
-export default AuctionLink
+
+Timer.defaultProps={
+    timerDays:10,
+    timerHours:10,
+    timerMinutes:10,
+     timerSeconds:10,
+  }; 
+
+export default Timer
